@@ -1,0 +1,126 @@
+{
+  "code": 0,
+  "message": "OK",
+  "ttl": 1,
+  "data": {
+    "bvid": "BV1hDkvBWEG7",
+    "aid": 115526818861170,
+    "videos": 1,
+    "tid": 244,
+    "tid_v2": 2025,
+    "tname": "",
+    "tname_v2": "",
+    "copyright": 3,
+    "pic": "http://i0.hdslb.com/bfs/archive/82f01bebd1da142d9663477609c62012c8c0f340.jpg",
+    "title": "【早安】《麒麟》超燃爆改动态架子鼓谱",
+    "pubdate": 1762822800,
+    "ctime": 1762799504,
+    "desc": "-",
+    "desc_v2": [
+      {
+        "raw_text": "-",
+        "type": 1,
+        "biz_id": 0
+      }
+    ],
+    "state": 0,
+    "duration": 188,
+    "mission_id": 4050452,
+    "rights": {
+      "bp": 0,
+      "elec": 0,
+      "download": 1,
+      "movie": 0,
+      "pay": 0,
+      "hd5": 0,
+      "no_reprint": 1,
+      "autoplay": 1,
+      "ugc_pay": 0,
+      "is_cooperation": 0,
+      "ugc_pay_preview": 0,
+      "no_background": 0,
+      "clean_mode": 0,
+      "is_stein_gate": 0,
+      "is_360": 0,
+      "no_share": 0,
+      "arc_pay": 0,
+      "free_watch": 0
+    },
+    "owner": {
+      "mid": 34164579,
+      "name": "罗曼音乐_Roman_Music",
+      "face": "https://i0.hdslb.com/bfs/face/9868bcd68211361b1703d290a8ce0d3a2637a9c9.jpg"
+    },
+    "stat": {
+      "aid": 115526818861170,
+      "view": 20488,
+      "danmaku": 11,
+      "reply": 22,
+      "favorite": 558,
+      "coin": 60,
+      "share": 176,
+      "now_rank": 0,
+      "his_rank": 0,
+      "like": 171,
+      "dislike": 0,
+      "evaluation": "",
+      "vt": 0
+    },
+    "argue_info": {
+      "argue_msg": "",
+      "argue_type": 0,
+      "argue_link": ""
+    },
+    "dynamic": "",
+    "cid": 33898889896,
+    "dimension": {
+      "width": 2560,
+      "height": 1440,
+      "rotate": 0
+    },
+    "premiere": null,
+    "teenage_mode": 1,
+    "is_chargeable_season": false,
+    "is_story": false,
+    "is_upower_exclusive": false,
+    "is_upower_play": false,
+    "is_upower_preview": false,
+    "enable_vt": 0,
+    "vt_display": "",
+    "is_upower_exclusive_with_qa": false,
+    "is_hua_sheng": false,
+    "no_cache": false,
+    "pages": [
+      {
+        "cid": 33898889896,
+        "page": 1,
+        "from": "vupload",
+        "part": "【早安】《麒麟》超燃爆改动态架子鼓谱",
+        "duration": 188,
+        "vid": "",
+        "weblink": "",
+        "dimension": {
+          "width": 2560,
+          "height": 1440,
+          "rotate": 0
+        },
+        "first_frame": "http://i0.hdslb.com/bfs/storyff/_00002mfjj5p7y9az72jrhc4ob47trjb_firsti.jpg",
+        "ctime": 1762799504
+      }
+    ],
+    "subtitle": {
+      "allow_submit": false,
+      "list": []
+    },
+    "is_season_display": false,
+    "user_garb": {
+      "url_image_ani_cut": ""
+    },
+    "honor_reply": {},
+    "like_icon": "",
+    "need_jump_bv": false,
+    "disable_show_up_info": false,
+    "is_story_play": 1,
+    "is_view_self": false
+  }
+}

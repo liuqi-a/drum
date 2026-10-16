@@ -1,0 +1,39 @@
+{
+  "title": "测试鼓谱",
+  "tempo": 105,
+  "total16": 16,
+  "bars": [
+    {
+      "events": [
+        {"pitch": 49, "pos": 0, "dur": 4, "voice": 0},
+        {"pitch": 38, "pos": 0, "dur": 4, "voice": 0},
+        {"pitch": 36, "pos": 0, "dur": 4, "voice": 1},
+        {"pitch": 42, "pos": 4, "dur": 2, "voice": 0},
+        {"pitch": 36, "pos": 4, "dur": 2, "voice": 1},
+        {"pitch": 42, "pos": 6, "dur": 2, "voice": 0},
+        {"pitch": 42, "pos": 8, "dur": 2, "voice": 0},
+        {"pitch": 38, "pos": 8, "dur": 2, "voice": 0},
+        {"pitch": 36, "pos": 8, "dur": 2, "voice": 1},
+        {"pitch": 42, "pos": 10, "dur": 2, "voice": 0},
+        {"pitch": 46, "pos": 12, "dur": 2, "voice": 0},
+        {"pitch": 36, "pos": 12, "dur": 2, "voice": 1},
+        {"pitch": 42, "pos": 14, "dur": 2, "voice": 0},
+        {"pitch": 38, "pos": 14, "dur": 2, "voice": 0}
+      ]
+    },
+    {
+      "events": [
+        {"pitch": 51, "pos": 0, "dur": 2, "voice": 0},
+        {"pitch": 36, "pos": 0, "dur": 2, "voice": 1},
+        {"pitch": 51, "pos": 2, "dur": 2, "voice": 0},
+        {"pitch": 50, "pos": 4, "dur": 2, "voice": 0},
+        {"pitch": 41, "pos": 6, "dur": 2, "voice": 0},
+        {"pitch": 37, "pos": 8, "dur": 4, "voice": 0},
+        {"pitch": 36, "pos": 8, "dur": 4, "voice": 1},
+        {"pitch": 44, "pos": 12, "dur": 2, "voice": 1},
+        {"pitch": 55, "pos": 12, "dur": 2, "voice": 0},
+        {"pitch": 42, "pos": 14, "dur": 2, "voice": 0}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=2560, height=1440" />
+    <script src="vendor/vexflow.js"></script>
+    <script src="vendor/gsap.min.js"></script>
+    <script src="assets/score-data.js"></script>
+    <style>
+      /* 页面基础：纯白纸面，与参考的动态鼓谱一致 */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      /* --u 是相对 1920 宽的设计单位倍率，由脚本按画布宽度写入，保证换分辨率不跑版 */
+      :root { --u: 1; }
+      /* 字体统一使用通用族名，避免渲染机上缺失指定字体导致排版漂移 */
+      html, body {
+        overflow: hidden;
+        background: #ffffff;
+        font-family: serif;
+      }
+      #root { position: relative; width: 100%; height: 100%; }
+      /* 纸面容器：不加 data-start，避免时间线上出现「带时序的容器嵌套元素」 */
+      #paper { position: absolute; inset: 0; background: #ffffff; }
+
+      /* 顶部标题框：虚线边框 + 居中曲名 + 右侧署名，模仿参考视频的版头 */
+      #head {
+        position: absolute;
+        left: calc(60px * var(--u)); top: calc(26px * var(--u)); right: calc(60px * var(--u));
+        height: calc(108px * var(--u));
+        border: 1px dashed #bcbcbc;
+      }
+      #head-title {
+        position: absolute; left: 0; right: 0; top: calc(26px * var(--u)); text-align: center;
+        font-size: calc(42px * var(--u)); letter-spacing: calc(4px * var(--u)); color: #111111;
+      }
+      #head-meta {
+        position: absolute; right: calc(22px * var(--u)); top: calc(22px * var(--u)); text-align: right;
+        font-family: sans-serif; color: #333333;
+      }
+      #head-meta .line1 { font-size: calc(22px * var(--u)); }
+      #head-meta .line2 { font-size: calc(15px * var(--u)); color: #6b6b6b; margin-top: calc(4px * var(--u)); }
+      #head-tempo { display: none; }
+
+      /* VexFlow 画布容器：与 #paper 左上角对齐，便于用同一套像素坐标定位光标 */
+      #score { position: absolute; left: 0; top: 0; }
+
+      /* 速度标记：放在第一行谱表左上方，与参考视频一致；音符符号用 SVG 画，不依赖字体 */
+      #tempo {
+        position: absolute; left: calc(92px * var(--u)); top: calc(294px * var(--u));
+        display: flex; align-items: flex-end; gap: calc(9px * var(--u));
+        font-family: sans-serif; font-size: calc(26px * var(--u)); color: #111111;
+      }
+      #tempo svg { display: block; width: calc(20px * var(--u)); height: calc(31px * var(--u)); }
+
+      /* 播放光标：半透明浅蓝色竖条，位置与高度由 GSAP 逐段驱动 */
+      #cursor {
+        position: absolute; left: 0; top: 0; width: calc(30px * var(--u));
+        background: rgba(150, 197, 236, 0.62);
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="2560"
+      data-height="1440"
+      data-duration="22.07"
+    >
+      <div id="paper">
+        <div id="head">
+          <div id="head-title"></div>
+          <div id="head-meta">
+            <div class="line1"></div>
+            <div class="line2"></div>
+          </div>
+          <div id="head-tempo"></div>
+        </div>
+        <div id="score"></div>
+        <div id="cursor"></div>
+        <div id="tempo">
+          <svg width="20" height="31" viewBox="0 0 20 31" aria-hidden="true">
+            <ellipse cx="7" cy="23" rx="6.2" ry="4.6" transform="rotate(-20 7 23)" fill="#111111"></ellipse>
+            <rect x="11.5" y="2" width="2.1" height="21" fill="#111111"></rect>
+          </svg>
+          <span></span>
+        </div>
+      </div>
+      <audio id="bgm" src="assets/bgm.mp3" data-start="0" data-duration="22.07"></audio>
+    </div>
+
+    <script>
+      // 兼容 UMD 构建：全局对象在不同版本里可能挂在 Vex.Flow 或 Vex 上
+      const VF = window.Vex && window.Vex.Flow ? window.Vex.Flow : window.Vex;
+      const SCORE = window.SCORE;
+      const META = SCORE.meta;
+
+      // 画布尺寸来自根节点，逻辑坐标系固定 960×540，换分辨率只需改 data-width / data-height
+      const root = document.getElementById("root");
+      const CANVAS_W = Number(root.dataset.width);
+      const CANVAS_H = Number(root.dataset.height);
+      const LOGICAL_W = 960;
+      const S = CANVAS_W / LOGICAL_W;   // 逻辑单位到像素的缩放
+      const U = CANVAS_W / 1920;        // 相对 1920 宽的设计单位倍率
+      document.documentElement.style.setProperty("--u", String(U));
+      document.body.style.width = CANVAS_W + "px";
+      document.body.style.height = CANVAS_H + "px";
+      const STAVE_X = 46;               // 谱表左边界（逻辑单位）
+      const STAVE_W = 880;              // 谱表宽度（逻辑单位）
+      const SYSTEM_Y = [132, 228, 324, 420]; // 四行谱表的纵向位置（逻辑单位）
+      const CURSOR_W = 30 * U;          // 光标宽度（像素）
+
+      const BARS_PER_SYSTEM = META.barsPerSystem;
+      const SIXTEENTH = META.beatSec / 4;
+
+      // 顶部标题信息直接来自鼓点数据源，避免两处手写不一致
+      document.getElementById("head-title").textContent = META.title;
+      document.querySelector("#head-meta .line1").textContent = META.subtitle;
+      document.querySelector("#head-meta .line2").textContent = "BPM " + META.bpm + " · 4/4";
+      document.querySelector("#tempo span").textContent = "= " + META.bpm;
+
+      // 把一个小节的 token 序列转成 VexFlow 的 StaveNote 列表（休止符用 duration 后缀 r）
+      function tokensToNotes(tokens, voice) {
+        return tokens.map(function (tk) {
+          const isRest = tk.d.charAt(tk.d.length - 1) === "r";
+          const dur = isRest ? tk.d.slice(0, -1) : tk.d;
+          const note = new VF.StaveNote({
+            clef: "percussion",
+            keys: tk.keys,
+            duration: isRest ? dur + "r" : dur,
+            stem_direction: voice === 1 ? 1 : -1,
+            auto_stem: false,
+          });
+          note.hfData = { hit: !!tk.hit, slot: tk.s, voice: voice };
+          return note;
+        });
+      }
+
+      // 主流程：逐行排版乐谱，并顺手记录「每个音符的时间与横向位置」供光标使用
+      function engrave() {
+        const renderer = new VF.Renderer(
+          document.getElementById("score"),
+          VF.Renderer.Backends.SVG
+        );
+        renderer.resize(CANVAS_W, CANVAS_H);
+        const ctx = renderer.getContext();
+        ctx.scale(S, S);
+
+        const anchors = [];   // {t, x, top, bottom, sys}
+        const flashes = [];   // {t, el} 需要在命中瞬间变蓝的音符元素
+        const systems = [];
+
+        const systemCount = Math.ceil(SCORE.bars.length / BARS_PER_SYSTEM);
+        for (let si = 0; si < systemCount; si++) {
+          const stave = new VF.Stave(STAVE_X, SYSTEM_Y[si], STAVE_W);
+          if (si === 0) {
+            stave.addClef("percussion");
+            stave.addTimeSignature("4/4");
+          }
+          stave.setContext(ctx).draw();
+
+          const v1 = new VF.Voice({ num_beats: 8, beat_value: 4 });
+          const v2 = new VF.Voice({ num_beats: 8, beat_value: 4 });
+          v1.setMode(VF.Voice.Mode.SOFT);
+          v2.setMode(VF.Voice.Mode.SOFT);
+
+          const v1Notes = [];
+          const v2Notes = [];
+          for (let bi = 0; bi < BARS_PER_SYSTEM; bi++) {
+            const barIdx = si * BARS_PER_SYSTEM + bi;
+            const bar = SCORE.bars[barIdx];
+            if (!bar) break;
+            if (bi > 0) {
+              v1.addTickable(new VF.BarNote(VF.Barline.type.SINGLE));
+              v2.addTickable(new VF.BarNote(VF.Barline.type.SINGLE));
+            }
+            [["v1", v1, v1Notes, 1], ["v2", v2, v2Notes, 2]].forEach(function (spec) {
+              const key = spec[0], voice = spec[1], bucket = spec[2], vnum = spec[3];
+              tokensToNotes(bar[key], vnum).forEach(function (note) {
+                voice.addTickable(note);
+                if (note.hfData.hit) {
+                  bucket.push({ note: note, bar: bar, slot: note.hfData.slot });
+                }
+              });
+            });
+          }
+
+          new VF.Formatter().joinVoices([v1, v2]).formatToStave([v1, v2], stave);
+          v1.draw(ctx, stave);
+          v2.draw(ctx, stave);
+
+          // 按拍分组自动连梁，休止符不参与连梁
+          [["v1", v1, 1], ["v2", v2, -1]].forEach(function (spec) {
+            const tickables = spec[1].getTickables().filter(function (t) {
+              return t instanceof VF.StaveNote;
+            });
+            VF.Beam.generateBeams(tickables, {
+              groups: [new VF.Fraction(1, 4)],
+              stem_direction: spec[2],
+              maintain_stem_directions: true,
+              beam_rests: false,
+            }).forEach(function (beam) {
+              beam.setContext(ctx).draw();
+            });
+          });
+
+          // 行首小节号：与参考视频一致，标在每行谱表左上方；第一行位置留给速度标记
+          if (si > 0) {
+            ctx.setFont("serif", 13, "normal");
+            ctx.fillStyle = "#333333";
+            ctx.fillText(String(SCORE.bars[si * BARS_PER_SYSTEM].index), 14, stave.getYForLine(0) - 6);
+          }
+
+          const top = stave.getYForLine(-0.7) * S;
+          const bottom = stave.getYForLine(4.7) * S;
+          [v1Notes, v2Notes].forEach(function (bucket) {
+            bucket.forEach(function (item) {
+              const t = item.bar.t0 + item.slot * SIXTEENTH;
+              anchors.push({
+                t: t,
+                x: item.note.getAbsoluteX() * S,
+                top: top,
+                bottom: bottom,
+                sys: si,
+              });
+              const el = item.note.getSVGElement && item.note.getSVGElement();
+              if (el) flashes.push({ t: t, el: el });
+            });
+          });
+
+          systems.push(stave);
+
+        }
+
+        anchors.sort(function (a, b) { return a.t - b.t; });
+        flashes.sort(function (a, b) { return a.t - b.t; });
+        return { anchors: anchors, flashes: flashes };
+      }
+
+      const built = engrave();
+      const cursor = document.getElementById("cursor");
+
+      // 光标从第一个音符位置起步
+      const first = built.anchors[0];
+      gsap.set(cursor, {
+        x: first.x - CURSOR_W / 2,
+        y: first.top,
+        height: first.bottom - first.top,
+      });
+
+      const tl = gsap.timeline({ paused: true });
+
+      // 逐段驱动光标：同一行内横向匀速前进，跨行时瞬间跳到下一行行首
+      for (let i = 1; i < built.anchors.length; i++) {
+        const prev = built.anchors[i - 1];
+        const cur = built.anchors[i];
+        const span = Math.max(0.024, cur.t - prev.t);
+        if (cur.sys !== prev.sys) {
+          tl.set(cursor, { y: cur.top, height: cur.bottom - cur.top }, prev.t + 0.012);
+          tl.to(cursor, { x: cur.x - CURSOR_W / 2, duration: span, ease: "none" }, prev.t);
+        } else {
+          tl.to(cursor, { x: cur.x - CURSOR_W / 2, duration: span, ease: "none" }, prev.t);
+        }
+      }
+      // 音乐结束：光标继续走到末小节尾并淡出
+      const lastAnchor = built.anchors[built.anchors.length - 1];
+      tl.to(cursor, {
+        x: (STAVE_X + STAVE_W) * S - CURSOR_W / 2,
+        duration: Math.max(0.02, META.musicSec - lastAnchor.t),
+        ease: "none",
+      }, lastAnchor.t);
+      tl.to(cursor, { opacity: 0, duration: 0.35, ease: "none" }, META.musicSec);
+
+      // 命中瞬间把该音符染蓝，随后恢复黑色，形成「音符逐颗点亮」的效果
+      built.flashes.forEach(function (item) {
+        const paths = item.el.querySelectorAll("path");
+        if (!paths.length) return;
+        tl.to(paths, { fill: "#2076c9", duration: 0.05, ease: "none" }, item.t);
+        tl.to(paths, { fill: "#111111", duration: 0.12, ease: "none" }, item.t + 0.17);
+      });
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

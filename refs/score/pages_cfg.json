@@ -1,0 +1,22 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "file": "refs/score/lvguang_p1.jpg",
+      "x0": 430,
+      "x1": 2990,
+      "systems": [
+        {"index": 1, "y0": 780, "y1": 990, "firstBar": 1},
+        {"index": 2, "y0": 1050, "y1": 1280, "firstBar": 8},
+        {"index": 3, "y0": 1340, "y1": 1570, "firstBar": 13},
+        {"index": 4, "y0": 1620, "y1": 1850, "firstBar": 17},
+        {"index": 5, "y0": 1910, "y1": 2140, "firstBar": 20},
+        {"index": 6, "y0": 2230, "y1": 2460, "firstBar": 23},
+        {"index": 7, "y0": 2520, "y1": 2760, "firstBar": 28},
+        {"index": 8, "y0": 2810, "y1": 3040, "firstBar": 33},
+        {"index": 9, "y0": 3100, "y1": 3330, "firstBar": 36},
+        {"index": 10, "y0": 3380, "y1": 3610, "firstBar": 39}
+      ]
+    }
+  ]
+}

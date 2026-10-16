@@ -1,0 +1,125 @@
+{
+  "code": 0,
+  "message": "OK",
+  "ttl": 1,
+  "data": {
+    "bvid": "BV1MisVzYERQ",
+    "aid": 115424930897791,
+    "videos": 1,
+    "tid": 244,
+    "tid_v2": 2025,
+    "tname": "",
+    "tname_v2": "",
+    "copyright": 3,
+    "pic": "http://i2.hdslb.com/bfs/archive/4e2d426757ab290ac598007774c9e23d0a08ad16.jpg",
+    "title": "【王心凌】《爱你》入门级动态鼓谱",
+    "pubdate": 1761267600,
+    "ctime": 1761244841,
+    "desc": "-",
+    "desc_v2": [
+      {
+        "raw_text": "-",
+        "type": 1,
+        "biz_id": 0
+      }
+    ],
+    "state": 0,
+    "duration": 219,
+    "rights": {
+      "bp": 0,
+      "elec": 0,
+      "download": 1,
+      "movie": 0,
+      "pay": 0,
+      "hd5": 0,
+      "no_reprint": 1,
+      "autoplay": 1,
+      "ugc_pay": 0,
+      "is_cooperation": 0,
+      "ugc_pay_preview": 0,
+      "no_background": 0,
+      "clean_mode": 0,
+      "is_stein_gate": 0,
+      "is_360": 0,
+      "no_share": 0,
+      "arc_pay": 0,
+      "free_watch": 0
+    },
+    "owner": {
+      "mid": 34164579,
+      "name": "罗曼音乐_Roman_Music",
+      "face": "https://i0.hdslb.com/bfs/face/9868bcd68211361b1703d290a8ce0d3a2637a9c9.jpg"
+    },
+    "stat": {
+      "aid": 115424930897791,
+      "view": 11218,
+      "danmaku": 0,
+      "reply": 9,
+      "favorite": 334,
+      "coin": 27,
+      "share": 98,
+      "now_rank": 0,
+      "his_rank": 0,
+      "like": 85,
+      "dislike": 0,
+      "evaluation": "",
+      "vt": 0
+    },
+    "argue_info": {
+      "argue_msg": "",
+      "argue_type": 0,
+      "argue_link": ""
+    },
+    "dynamic": "",
+    "cid": 33338622943,
+    "dimension": {
+      "width": 2560,
+      "height": 1440,
+      "rotate": 0
+    },
+    "premiere": null,
+    "teenage_mode": 1,
+    "is_chargeable_season": false,
+    "is_story": false,
+    "is_upower_exclusive": false,
+    "is_upower_play": false,
+    "is_upower_preview": false,
+    "enable_vt": 0,
+    "vt_display": "",
+    "is_upower_exclusive_with_qa": false,
+    "is_hua_sheng": false,
+    "no_cache": false,
+    "pages": [
+      {
+        "cid": 33338622943,
+        "page": 1,
+        "from": "vupload",
+        "part": "【王心凌】《爱你》入门级动态鼓谱",
+        "duration": 219,
+        "vid": "",
+        "weblink": "",
+        "dimension": {
+          "width": 2560,
+          "height": 1440,
+          "rotate": 0
+        },
+        "first_frame": "http://i2.hdslb.com/bfs/storyff/_00003ih7736nzy8yh2vg4z1rmd3fivb_firsti.jpg",
+        "ctime": 1761244841
+      }
+    ],
+    "subtitle": {
+      "allow_submit": false,
+      "list": []
+    },
+    "is_season_display": false,
+    "user_garb": {
+      "url_image_ani_cut": ""
+    },
+    "honor_reply": {},
+    "like_icon": "",
+    "need_jump_bv": false,
+    "disable_show_up_info": false,
+    "is_story_play": 1,
+    "is_view_self": false
+  }
+}

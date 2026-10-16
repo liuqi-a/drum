@@ -1,0 +1,12 @@
+---
+description: 鼓谱视频编制完成后必须把成片 MP4 保存到用户桌面
+alwaysApply: true
+---
+
+# 成片落桌面
+
+任何鼓谱视频**编制 / 渲染完成**后，除项目内输出（如 `refs/out/`、`videos/*/renders/`）外，还必须把最终 MP4 **复制一份到用户桌面**，并在回复里写出桌面路径。
+
+- `tools/render_full.py` 已通过 `save_to_desktop()` 自动拷贝；改此脚本时不要删掉该步骤。
+- 若使用其它入口（`render_video*.py`、HyperFrames `npm run render` 等），收尾同样执行拷贝：文件名与成片 basename 一致。
+- 桌面目录优先 `~/Desktop`，若不存在则试 `~/桌面`。

@@ -1,0 +1,178 @@
+[
+ {
+  "pitch": 35,
+  "line": 8,
+  "head": "normal",
+  "voice": 1,
+  "stem": 2,
+  "name": "Bass Drum 2",
+  "shortcut": "",
+  "panelRow": 1,
+  "panelColumn": 0
+ },
+ {
+  "pitch": 36,
+  "line": 7,
+  "head": "normal",
+  "voice": 1,
+  "stem": 2,
+  "name": "Bass Drum",
+  "shortcut": "A",
+  "panelRow": 0,
+  "panelColumn": 0
+ },
+ {
+  "pitch": 37,
+  "line": 3,
+  "head": "cross",
+  "voice": 0,
+  "stem": 1,
+  "name": "Cross-stick",
+  "shortcut": "",
+  "panelRow": 1,
+  "panelColumn": 1
+ },
+ {
+  "pitch": 38,
+  "line": 3,
+  "head": "normal",
+  "voice": 0,
+  "stem": 1,
+  "name": "Snare",
+  "shortcut": "B",
+  "panelRow": 0,
+  "panelColumn": 1
+ },
+ {
+  "pitch": 41,
+  "line": 5,
+  "head": "normal",
+  "voice": 0,
+  "stem": 1,
+  "name": "Floor Tom",
+  "shortcut": "H",
+  "panelRow": 0,
+  "panelColumn": 7
+ },
+ {
+  "pitch": 42,
+  "line": -1,
+  "head": "cross",
+  "voice": 0,
+  "stem": 1,
+  "name": "Closed Hi-Hat",
+  "shortcut": "C",
+  "panelRow": 0,
+  "panelColumn": 2
+ },
+ {
+  "pitch": 44,
+  "line": 9,
+  "head": "cross",
+  "voice": 1,
+  "stem": 2,
+  "name": "Pedal Hi-Hat",
+  "shortcut": "",
+  "panelRow": 1,
+  "panelColumn": 3
+ },
+ {
+  "pitch": 46,
+  "line": -1,
+  "head": "xcircle",
+  "voice": 0,
+  "stem": 1,
+  "name": "Open Hi-Hat",
+  "shortcut": "D",
+  "panelRow": 0,
+  "panelColumn": 3
+ },
+ {
+  "pitch": 47,
+  "line": 2,
+  "head": "normal",
+  "voice": 0,
+  "stem": 1,
+  "name": "Low Tom",
+  "shortcut": "",
+  "panelRow": 1,
+  "panelColumn": 6
+ },
+ {
+  "pitch": 49,
+  "line": -2,
+  "head": "cross",
+  "voice": 0,
+  "stem": 1,
+  "name": "Crash Cymbal",
+  "shortcut": "E",
+  "panelRow": 0,
+  "panelColumn": 4
+ },
+ {
+  "pitch": 50,
+  "line": 1,
+  "head": "normal",
+  "voice": 0,
+  "stem": 1,
+  "name": "High Tom",
+  "shortcut": "G",
+  "panelRow": 0,
+  "panelColumn": 6
+ },
+ {
+  "pitch": 51,
+  "line": 0,
+  "head": "cross",
+  "voice": 0,
+  "stem": 1,
+  "name": "Ride Cymbal",
+  "shortcut": "F",
+  "panelRow": 0,
+  "panelColumn": 5
+ },
+ {
+  "pitch": 52,
+  "line": -3,
+  "head": "normal",
+  "voice": 0,
+  "stem": 1,
+  "name": "China Cymbal",
+  "shortcut": "",
+  "panelRow": 1,
+  "panelColumn": 7
+ },
+ {
+  "pitch": 53,
+  "line": 0,
+  "head": "diamond",
+  "voice": 0,
+  "stem": 1,
+  "name": "Ride Bell",
+  "shortcut": "",
+  "panelRow": 1,
+  "panelColumn": 5
+ },
+ {
+  "pitch": 55,
+  "line": -4,
+  "head": "cross",
+  "voice": 0,
+  "stem": 1,
+  "name": "Splash Cymbal",
+  "shortcut": "",
+  "panelRow": 1,
+  "panelColumn": 2
+ },
+ {
+  "pitch": 57,
+  "line": -3,
+  "head": "cross",
+  "voice": 0,
+  "stem": 1,
+  "name": "Crash Cymbal 2",
+  "shortcut": "",
+  "panelRow": 1,
+  "panelColumn": 4
+ }
+]

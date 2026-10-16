@@ -1,0 +1,69 @@
+# 本地大体积工具与依赖（不进仓库）
+.tools/
+tools/ms4/
+tools/MuseScore-Studio-*.msi
+tools/__pycache__/
+tools/_page_tmp.png
+**/__pycache__/
+*.pyc
+.node_modules/
+node_modules/
+.venv/
+venv/
+
+# 参考音视频与抽帧（体积大、含版权素材）
+refs/video/
+refs/audio/
+refs/hq/
+refs/frames/
+refs/hq/frames/
+refs/out/
+refs/**/*.mp4
+refs/**/*.m4a
+refs/**/*.mp3
+refs/**/*.wav
+refs/**/*.ncm
+# 高分辨率谱面渲图/中间页可本地再生
+refs/score/**/png/
+refs/score/**/svg/
+refs/score/pages/
+refs/score/pages5/
+refs/score/pdf_pages/
+refs/score/flat/
+refs/score/sys_p1/
+refs/score/v3/
+refs/score/v4/
+refs/score/v5/
+refs/score/v6/
+refs/score/v7/
+refs/score/*.png
+refs/score/*.svg
+!.gitkeep
+
+# HyperFrames 产物与缓存
+videos/**/renders/
+videos/**/.hyperframes/
+videos/**/node_modules/
+videos/**/vendor/
+*.mp4
+*.m4a
+*.mp3
+*.wav
+
+# 临时与编辑器
+.tmp_frames/
+.firecrawl/
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# 环境与密钥
+.env
+.env.*
+!.env.example
+credentials.json
+*.pem
+*.key

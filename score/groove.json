@@ -1,0 +1,41 @@
+{
+  "title": "演示鼓谱",
+  "subtitle": "动态鼓谱引擎 DEMO",
+  "bpm": 92,
+  "beatsPerBar": 4,
+  "beatUnit": 4,
+  "barsPerSystem": 2,
+  "tailSec": 1.2,
+  "comment": "每个乐器用 16 个字符表示一小节的 16 分音符网格，'x' 为命中，'.' 为休止。乐器到五线谱位置的映射见 tools/build_score.py 的 STAFF_MAP。",
+  "patterns": {
+    "A": {
+      "hh":    "x.x.x.x.x.x.x.x.",
+      "snare": "....x.......x...",
+      "kick":  "x.......x.x....."
+    },
+    "B": {
+      "hh":    "x.x.x.x.x.x.x.x.",
+      "snare": "....x.......x...",
+      "kick":  "x.....x.x......."
+    },
+    "C": {
+      "hh":     "x.x.x.x.........",
+      "snare":  "....x...........",
+      "kick":   "x.......x.......",
+      "tom1":   "............x...",
+      "tom2":   ".............x..",
+      "floor":  "..............x.",
+      "snare2": "...............x"
+    }
+  },
+  "arrangement": [
+    { "bar": 1, "pattern": "A", "crash": true },
+    { "bar": 2, "pattern": "A" },
+    { "bar": 3, "pattern": "B" },
+    { "bar": 4, "pattern": "A" },
+    { "bar": 5, "pattern": "A", "crash": true },
+    { "bar": 6, "pattern": "B" },
+    { "bar": 7, "pattern": "A" },
+    { "bar": 8, "pattern": "C", "crash": true }
+  ]
+}
