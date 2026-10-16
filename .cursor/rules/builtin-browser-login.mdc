@@ -1,0 +1,13 @@
+---
+description: 登录/授权网页必须用 Cursor 内置浏览器，禁止系统浏览器
+alwaysApply: true
+---
+
+# 登录用内置浏览器
+
+凡涉及 **网页登录 / OAuth / 设备码授权**（如 `gh auth login`、GitHub device、任意需用户在网页点授权的流程）：
+
+1. **用 Cursor 内置浏览器**（`cursor-ide-browser` MCP：`browser_navigate` 等），把授权 URL 打开在 IDE 内 Browser Tab。
+2. **禁止** `Start-Process`、默认系统浏览器、`open_resource` 甩到外部 Chrome，除非用户明确要求外开。
+3. 若 CLI 打印了 device code + `https://github.com/login/device`：在内置浏览器打开该 URL，并在回复里写出一次性代码，请用户在 **Cursor Browser Tab** 内完成登录（勿在外部浏览器登，会话不互通）。
+4. 回复时写明：「请在 Cursor 内置浏览器里登录」，避免用户登错窗口。
